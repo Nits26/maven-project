@@ -1,14 +1,14 @@
 pipeline {
     agent any
-    tools{
-        maven 'localMaven'
-    }
+
     stages {
         stage('Build') {
             steps {
+                withMaven (maven: 'localMaven'){
 				echo 'Now Building...'
-                call 'mvn clean package'
+                sh 'mvn clean package'
             }
+        }
             post {
                 success {
                     echo 'Now Archiving...'
